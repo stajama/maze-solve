@@ -8,7 +8,12 @@ def isgoodcoord(coordinate, matr, been):
         return True
     return False
 
-
+'''In the Pound implementation, nodes need only be connected 
+latitudinally or longitudinally. By capturing the direction and 
+distance between nodes, we can count steps between them.'''
+'''Went with this idea assuming it would cost less and be more 
+efficient than a mechanical solution. Can not test this 
+hypothesis until code is working fully'''
 def connectnode(start, matr, direction, nodedic):
     startcoord = nodedic[start]['coordinate']
     directdic = {'N': (-1,0), 'S':(1,0), 'E':(0,1), 'W':(0,-1)}
@@ -46,6 +51,10 @@ def getnode(picture,pictureload):
     nodedic = {'S':{'coordinate':(0,matrix[0].index(1)), 'connections':{}}, 'E':{'coordinate':(height-1,matrix[-1].index(1)), 'connections':{}}}
 
     alpha = 'ABCDFGHIJKLMNOPQRTUVWXYZabcedfghijklmnopqrstuvwxyz0123456789'
+    '''this bit is hamstrung by any maze bigger than the total number 
+    of icons available in the above list. Need to find a larger 
+    sample of potential one-character node names or find a 
+    different storage solution.''' 
     #print(matrix)
     for x in range(1,height-1):
         for y in range(width):
@@ -72,7 +81,13 @@ def getnode(picture,pictureload):
 
 
 
-
+'''My implementation idea was to only capture nodes that act as 
+branching junctions. This reduces the size of the hashtable 
+necessary to represent the maze abstractly in memory. The major 
+downfall of this implementation is the difficulty of reconstructing 
+directions from a map so far abstracted from the original. Was 
+considering another targeted flood-fill to just find the paths 
+between nodes, but a more efficient solution must exist.'''
 def getnodeMos(picture, pictureload):
     width = picture.width
     height = picture.height
@@ -97,6 +112,5 @@ def getnodeMos(picture, pictureload):
                     nodedic[alpha[0]] = {"coordinate":(x,y), 'connections':{},}
                     alpha = alpha[1:]
     return nodedic
-
 
 
