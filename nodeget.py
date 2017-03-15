@@ -1,4 +1,4 @@
-
+import random
 
 def NSEWget(xycoord):
         return [(xycoord[0]-1,xycoord[1]), (xycoord[0]+1,xycoord[1]), (xycoord[0],xycoord[1]+1), (xycoord[0],xycoord[1]-1)]
@@ -39,6 +39,16 @@ def connectnode(start, matr, direction, nodedic):
 
 
 def getnode(picture,pictureload):
+    def randerz(dicorlist):
+        while True:
+            x = chr(random.randint(65,90)) + chr(random.randint(65,90)) + chr(random.randint(65,90)) + \
+            chr(random.randint(65,90)) + chr(random.randint(65,90)) + chr(random.randint(65,90)) + \
+            chr(random.randint(65,90)) + chr(random.randint(65,90)) + chr(random.randint(65,90)) + \
+            chr(random.randint(65,90)) + chr(random.randint(65,90)) + chr(random.randint(65,90))
+            if not x in dicorlist:
+                return x
+            
+
     width = picture.width
     height = picture.height
     matrix = [[]]
@@ -50,12 +60,8 @@ def getnode(picture,pictureload):
     #print("matrix\n",matrix[0],matrix[1],matrix[2],matrix[3],matrix[4],matrix[5],matrix[6],matrix[7],matrix[8],matrix[9])
     nodedic = {'S':{'coordinate':(0,matrix[0].index(1)), 'connections':{}}, 'E':{'coordinate':(height-1,matrix[-1].index(1)), 'connections':{}}}
 
-    alpha = 'ABCDFGHIJKLMNOPQRTUVWXYZabcedfghijklmnopqrstuvwxyz0123456789'
-    '''this bit is hamstrung by any maze bigger than the total number 
-    of icons available in the above list. Need to find a larger 
-    sample of potential one-character node names or find a 
-    different storage solution.''' 
-    #print(matrix)
+    
+
     for x in range(1,height-1):
         for y in range(width):
             #print('try', (x,y))
@@ -69,10 +75,9 @@ def getnode(picture,pictureload):
                     else:
                         isnode[item] = 0
                 if sum(isnode[:2]) >= 1 and sum(isnode[2:]) >= 1:
-                    nodename = alpha[0]
-                    alpha = alpha[1:]
                     #print('tick')
-                    nodedic[nodename] = {"coordinate":(x,y), 'connections':{},}
+                    #print('nodeget',nodename,(x,y))
+                    nodedic[randerz(nodedic)] = {"coordinate":(x,y), 'connections':{},}
     for key in nodedic:
         for direction in "NSEW":
             nodedic = connectnode(key, matrix, direction, nodedic) 

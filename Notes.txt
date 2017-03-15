@@ -1,0 +1,9 @@
+1. The first problem to solve is creating a system to identify nodea in a maze similar to pound's. The current idea is an algorithm that checks each matrix position for choice. (Exp node = (x,y), where x is vertical connections and y is horizontal connections. If a node has at least one of each type of connection, it has choice and thus is a node. If it only has one connection type [vertical or horizontal] it is a path and can be ignored. It has one or less connections of any type, it is a dead end.) Nodes should be stored in a dictionary 'x[(vert,horz)] = list of connecting nodes'. Connecting nodes will be all othee nodes with similar x or y axis and no obstruction between them (no clue how to do that yet).
+
+
+
+2. Set up solution to naive/brute force it. May also explore using "hug left hand wall" solution if possible. Old recursive fallback will not work universally (too big a matrix will reach recursion limit).
+
+3. Figure out effective way to weigh each node. Probably will have to be valid tiles between nodes (distance traveled). This will inform both Dijkstra and a-star.
+
+4. I'd like to mirror Pound's output system. See if you can learn enough PIL to pull it off.

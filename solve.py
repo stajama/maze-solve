@@ -9,7 +9,7 @@ from nodeget import getnode
 
 # Load Image
 print("Loading Image")
-im = Image.open('tiny.png')
+im = Image.open('logo.png')
 xm = im.load()
 
 #Create the maze (and time it) - for many mazes this is more time consuming than solving the maze
@@ -20,20 +20,26 @@ matrix = pixelget(im,xm)
 t1 = time.time()
 
 #print("Node Count:");
-print(t1, t0)
+#print(t1, t0)
 total = t1-t0
 print("Time elapsed:", total, "\n")
 
 print('Trying Naive Recursive Solution')
 t0 = time.time()
-print(naiverec(matrix))
+try:
+    print(naiverec(matrix))
+except:
+    print("FAILED")
 t1 = time.time()
 total = t1-t0
 print("Time elapsed:", total, "\n")
 
 print('Trying Naive Imperative Solution')
 t0 = time.time()
-print(naiverec(matrix))
+try:
+    print(naiverec(matrix))
+except:
+    print("FAILED")
 t1 = time.time()
 total = t1-t0
 print("Time elapsed:", total, "\n")
@@ -42,7 +48,7 @@ print("Time elapsed:", total, "\n")
 print ("Now creating Maze-Node Map")
 t0 = time.time()
 matrix = getnode(im,xm)
-print(matrix)
+#print(matrix)
 t1 = time.time()
 
 print("Node Count:", len(matrix));
@@ -52,7 +58,7 @@ print("Time elapsed:", total, "\n")
 print('Trying Dijkstra')
 t0 = time.time()
 get = dijkstraRun(matrix)
-print(get)
+#print(get)
 gets = printcoords(get,matrix)
 print(gets)
 t1 = time.time()
