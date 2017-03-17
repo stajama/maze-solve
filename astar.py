@@ -4,11 +4,11 @@ def euclid(node,end):
   if node[1]==end[1]:
     return end[0]-node[0]
   else:
-    a = end[0]-node[0]
+    a = end[0] - node[0]
     b = abs(node[1]-end[1])
-    return sqrt((a**2)+(b**2))
+    return math.sqrt((a**2)+(b**2))
     
-def dijkstraRun(nodedic):
+def astarRun(nodedic):
     #print(nodedic)
     start = 'S'
     end = 'E'
@@ -36,7 +36,7 @@ def dijkstraRun(nodedic):
                 # print(nodedic[check]['connections'][connectednode][1]+checknodes[check][0], checknodes[connectednode])
             elif nodedic[check]['connections'][connectednode][1]+checknodes[check][0] < checknodes[connectednode][0]:
                 #print('tick2')
-                checknodes[connectednode] = (nodedic[check]['connections'][connectednode][1]+checknodes[check][0+euclid(connectednode,nodedic[end]['coordinate'])], check)
+                checknodes[connectednode] = (nodedic[check]['connections'][connectednode][1]+checknodes[check][0]+euclid(nodedic[connectednode]['coordinate'],nodedic[end]['coordinate']), check)
                 if not len(prioritycue) <= 1:
                     prioritycue = prioritycue[:prioritycue.index(connectednode)] + prioritycue[prioritycue.index(connectednode)+1:]
                 else:

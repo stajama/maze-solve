@@ -6,10 +6,11 @@ from naive import naiveimp
 from dijkstra import dijkstraRun
 from dijkstra import printcoords
 from nodeget import getnode
+from astar import astarRun
 
 # Load Image
 print("Loading Image")
-im = Image.open('logo.png')
+im = Image.open('braid2k.png')
 xm = im.load()
 
 #Create the maze (and time it) - for many mazes this is more time consuming than solving the maze
@@ -17,6 +18,8 @@ print ("Creating Maze")
 t0 = time.time()
 print(pixelget(im,xm))
 matrix = pixelget(im,xm)
+size = len(matrix)
+print(size,' x ',size)
 t1 = time.time()
 
 #print("Node Count:");
@@ -37,7 +40,7 @@ print("Time elapsed:", total, "\n")
 print('Trying Naive Imperative Solution')
 t0 = time.time()
 try:
-    print(naiverec(matrix))
+    print(naiveimp(matrix))
 except:
     print("FAILED")
 t1 = time.time()
@@ -54,13 +57,22 @@ t1 = time.time()
 print("Node Count:", len(matrix));
 total = t1-t0
 print("Time elapsed:", total, "\n")
-
+matrix
 print('Trying Dijkstra')
 t0 = time.time()
 get = dijkstraRun(matrix)
 #print(get)
 gets = printcoords(get,matrix)
-print(gets)
+print(gets,"\n",len(gets))
+t1 = time.time()
+total = t1-t0
+print("Time elapsed:", total, "\n")
+
+print("NEW")
+t0 = time.time()
+x = astarRun(matrix)
+#print(x)
+print(printcoords(x, matrix),'\n',len(printcoords(x, matrix)))
 t1 = time.time()
 total = t1-t0
 print("Time elapsed:", total, "\n")
