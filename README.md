@@ -1,18 +1,11 @@
-# examples
-A few example mazes compatible with this solver. A brief desciption:
+# About
+This is a practice project, intended to test several maze solving algorithms on a single maze. Inspired by Mike Pound's Computerphile video series on Shortest-Path algorithms, the script applies 4 different algorithms to a single maze. The list of algorithms is available below.
 
-- tiny: Very small!
-- small: Quite small!
-- normal: I used this for testing a lot - 41x41 perfect maze (with one solution).
+# Getting Started
+For the time being, maze selection must be hard coded into solve.py. Once maze is selected, run solve.py in CLI. The script will print the maze solution for all algorithms attempted or False for those that fail, along with the calculation time spent on each algorithim. 
 
-- logo: A maze that includes the computerphile logo, it still has a few solutions I believe, though I had to hack about with it so there may now only be one.
+# Usage
+The script is designed to solve mazes feed in as a uncompressed pixel image, with a single entry point at the top and a single exit point at the bottom. Mazes may be simply-connected or more complex. The included example mazes were generated with Daedalus. 
 
-- perfect2k/4k/10k: Perfect mazes, only one solution to each, various sizes. The 10k image is 100 megapixels, so use with care.
-
-- braid200: A small braid maze. Braid mazes have multiple solutions.
-- braid2k: Much larger braid maze with multiple solutions.
-
-- combo400: A braid maze that has had some paths replaced with dead ends - for a slightly more interesting maze overall. Still has multiple solutions.
-- combo6k: A larger version of this combo maze. Since this has multiple solutions, the path taken isn't that exciting, but it'll demonstrate the difference between depth first and optimal solutions like astar or breadth first.
-
-- vertical15k: I started running short on ram here. I created a maze with a vertical bias, so there are generally longer vertical corridors. This reduces the node count somewhat, and as such reduced the RAM. If you have the computer for it, you can probably attempt a 15 or 20k maze without bias. Bear in mind that a 15k squared image is 225 megapixels, this is very big! I also had problems saving the image once the algorithm completed - could be RAM, could just be the Image class doesn't like files of this size! More testing needed.
+# Metholody
+The first algorithim used is a brute-force recursive flood fill search for the end. If it does not crash due to maximun recursion depth, it should provide a path to the exit. The second algorithim is a similar brute-force solution, intended to recreate the recursive search with interative code that should theoritically not fail to find a path if one exists. The third solution is a simple implementation of Dijkstra Shortest Path, measuring steps necessary to provide the shortest path to the exit. The forth solution is an simple A-Star implementation, using both the steps measurement from Dijkstra and an abstract Euclidian distance from the end to find the shortest path with priority placed on heading directionally toward the goal when possible.
