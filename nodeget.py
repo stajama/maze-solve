@@ -1,4 +1,6 @@
 import random
+from collections import ChainMap
+import time
 
 def NSEWget(xycoord):
         return [(xycoord[0]-1,xycoord[1]), (xycoord[0]+1,xycoord[1]), (xycoord[0],xycoord[1]+1), (xycoord[0],xycoord[1]-1)]
@@ -14,25 +16,23 @@ distance between nodes, we can count steps between them.'''
 '''Went with this idea assuming it would cost less and be more 
 efficient than a mechanical solution. Can not test this 
 hypothesis until code is working fully'''
-def connectnode(start, matr, direction, nodedic):
+def connectnode(start, matr, direction, nodedic, keylist, coordlist):
     startcoord = nodedic[start]['coordinate']
     directdic = {'N': (-1,0), 'S':(1,0), 'E':(0,1), 'W':(0,-1)}
     direction = directdic[direction]
-    starters = startcoord
+    starters = nodedic[start]['coordinate']
+    
     while True:
+        #print('connecting node', start)
         starters = (starters[0]+direction[0]),(starters[1]+direction[1])
         #print(starters)
         if isgoodcoord(starters,matr,[]) == False:
             return nodedic
-        for key in nodedic:
-            #print(key, start, starters, startcoord)
-            if key == start:
-                continue
-            if nodedic[key]['coordinate'] == starters:
-                #print(nodedic[key]['connections'])
-                nodedic[key]['connections'][start] = (startcoord, abs((startcoord[0]-starters[0])+(startcoord[1]-starters[1])))
-                nodedic[start]['connections'][key] = (starters, abs((startcoord[0]-starters[0]) + (startcoord[1]-starters[1])))
-                return nodedic
+        if starters in coordlist:
+            key = keylist[coordlist.index(starters)]
+            nodedic[key]['connections'][start] = (startcoord, abs((startcoord[0]-starters[0])+(startcoord[1]-starters[1])))
+            nodedic[start]['connections'][key] = (starters, abs((startcoord[0]-starters[0]) + (startcoord[1]-starters[1])))
+            return nodedic
 
 
 
@@ -58,7 +58,10 @@ def getnode(picture,pictureload):
         if not y == height-1:
             matrix.append([])
     #print("matrix\n",matrix[0],matrix[1],matrix[2],matrix[3],matrix[4],matrix[5],matrix[6],matrix[7],matrix[8],matrix[9])
-    nodedic = {'S':{'coordinate':(0,matrix[0].index(1)), 'connections':{}}, 'E':{'coordinate':(height-1,matrix[-1].index(1)), 'connections':{}}}
+    c = ChainMap()        # Create root context
+    nodedic = c.new_child()
+    nodedic['S'] = {'coordinate':(0,matrix[0].index(1)), 'connections':{}}
+    nodedic['E'] = {'coordinate':(height-1,matrix[-1].index(1)), 'connections':{}}
 
     
 
@@ -77,11 +80,17 @@ def getnode(picture,pictureload):
                 if sum(isnode[:2]) >= 1 and sum(isnode[2:]) >= 1:
                     #print('tick')
                     #print('nodeget',nodename,(x,y))
+                    #print('add node', (x,y), time.time())
                     nodedic[randerz(nodedic)] = {"coordinate":(x,y), 'connections':{},}
+    keylist = list(nodedic.keys())
+    thelist = [nodedic[key]["coordinate"] for key in keylist]
+    print('building dic', time.time())
+    starttime = time.time()
     for key in nodedic:
-        for direction in "NSEW":
-            nodedic = connectnode(key, matrix, direction, nodedic) 
-        #print(nodedic)      
+        for direction in "NE":
+            nodedic = connectnode(key, matrix, direction, nodedic, keylist, thelist) 
+        #print(nodedic)  
+    print('done', time.time()-starttime)    
     return nodedic
 
 
