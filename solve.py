@@ -68,7 +68,7 @@ t1 = time.time()
 total = t1-t0
 print("Time elapsed:", total, "\n")
 
-print("NEW")
+print("Trying A*")
 t0 = time.time()
 x = astarRun(matrix)
 #print(x)
