@@ -2,7 +2,7 @@
 This is a practice project, intended to test several maze solving algorithms on a single maze. Inspired by Mike Pound's Computerphile video series on Shortest-Path algorithms, the script applies 4 different algorithms to a single maze. The list of algorithms is available below.
 
 # Getting Started
-For the time being, maze selection must be hard coded into solve.py. Once maze is selected, run solve.py in CLI. The script will print the maze solution for all algorithms attempted or False for those that fail, along with the calculation time spent on each algorithm. 
+Script may be run from CLI, the sole argument needed is the name of the maze image file. The script will print the maze solution for all algorithms attempted or False for those that fail, along with the calculation time spent on each algorithm. 
 
 # Usage
 The script is designed to solve mazes feed in as a uncompressed pixel image, with a single entry point at the top and a single exit point at the bottom. Mazes may be simply-connected or more complex. The included example mazes were generated with Daedalus. Further information's about included mazes is available in examples.txt.
