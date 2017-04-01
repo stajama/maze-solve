@@ -6,11 +6,15 @@ from naive import naiveimp
 from dijkstra import dijkstraRun
 from dijkstra import printcoords
 from nodeget import getnode
-from astar import astarRun
+from astar import astarRun 
+import argparse
 
+parser = argparse.ArgumentParser(description="Provides coordinate based solutions to mazes using flood-fill, Dijkstra, and A* algorithms.")
+parser.add_argument('maze_image', metavar = 'name of image', type=str, )
+args = parser.parse_args()
 # Load Image
 print("Loading Image")
-im = Image.open('braid2k.png')
+im = Image.open(args.maze_image)
 xm = im.load()
 
 #Create the maze (and time it) - for many mazes this is more time consuming than solving the maze
@@ -68,7 +72,7 @@ t1 = time.time()
 total = t1-t0
 print("Time elapsed:", total, "\n")
 
-print("Trying A*")
+print("NEW")
 t0 = time.time()
 x = astarRun(matrix)
 #print(x)
