@@ -1,5 +1,10 @@
 import math
 
+'''Astar/A* solution is similar to the Dijkstra implementation. This solution
+   utilizies a simply function, euclid(), to determine the Euclidean distance
+   of the current node to the goal, allowing for faster routing following the
+   desired direction.'''
+
 def euclid(node, end):
   if node[1] == end[1]:
     return end[0] - node[0]
