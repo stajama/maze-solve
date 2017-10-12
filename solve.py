@@ -9,6 +9,7 @@ from dijkstra import printcoords
 from nodeget import getnode
 from astar import astarRun
 import argparse
+from validation import proofTest
 
 parser = argparse.ArgumentParser(description='''Provides coordinate based
                                  solutions to mazes using flood-fill,
@@ -37,28 +38,33 @@ print("Time elapsed:", total, "\n")
 
 print('Trying Naive Recursive Solution')
 t0 = time.time()
+nRec = None
 try:
-    print(naiverec(matrix))
-except:
-    print("FAILED")
+    nRec = naiverec(matrix)
+    print(nRec)
+except RecursionError:
+    print("FAILED, maximum recursive depth exceeded")
 t1 = time.time()
 total = t1-t0
 print("Time elapsed:", total, "\n")
+if nRec != None:
+    proofTest(matrix, nRec)
+
 
 print('Trying Naive Imperative Solution')
 t0 = time.time()
-try:
-    print(naiveimp(matrix))
-except:
-    print("FAILED")
+nImp = naiveimp(matrix)
+print(nImp)
 t1 = time.time()
 total = t1-t0
 print("Time elapsed:", total, "\n")
+if nImp != False:
+    proofTest(matrix, nImp)
 
 
 print("Now creating Maze-Node Map")
 t0 = time.time()
-matrix = getnode(im, xm)
+matrix, plainMatrix = getnode(im, xm), matrix
 # print(matrix)
 t1 = time.time()
 
@@ -75,12 +81,15 @@ print(gets, "\n", len(gets))
 t1 = time.time()
 total = t1-t0
 print("Time elapsed:", total, "\n")
+proofTest(plainMatrix, gets)
 
-print("NEW")
+print("A* Shortest Path")
 t0 = time.time()
 x = astarRun(matrix)
 # print(x)
-print(printcoords(x, matrix), '\n', len(printcoords(x, matrix)))
+aStarSol = printcoords(x, matrix)
+print(aStarSol, '\n', len(printcoords(x, matrix)))
 t1 = time.time()
 total = t1-t0
 print("Time elapsed:", total, "\n")
+proofTest(plainMatrix, aStarSol)

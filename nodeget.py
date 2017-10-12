@@ -1,5 +1,5 @@
 import random
-# from collections import ChainMap
+from collections import ChainMap
 import time
 
 '''In the Pound implementation, nodes need only be connected
@@ -70,8 +70,8 @@ def getnode(picture, pictureload):
             matrix[-1].append(pictureload[x, y])
         if not y == height - 1:
             matrix.append([])
-    # c = ChainMap()        # Create root context
-    # nodedic = c.new_child()
+    c = ChainMap()        # Create root context
+    nodedic = c.new_child()
     nodedic['S'] = {'coordinate': (0, matrix[0].index(1)), 'connections': {}}
     nodedic['E'] = {'coordinate': (height - 1, matrix[-1].index(1)),
                     'connections': {}}
