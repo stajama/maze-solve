@@ -1,3 +1,5 @@
+# A place to write and play around with testing solutions.
+
 [0, 0, 0, 0, 1],
 [0, 0, 0, 0, 1],
 [0, 0, 0, 0, 1]
