@@ -175,6 +175,8 @@ class UnitTestsForMazeSolveComponents(unittest.TestCase):
                                     (11, 18), (11, 17), (11, 16), (11, 15), (11, 14), (11, 13),
                                     (11, 12), (11, 11), (11, 10), (11, 9), (11, 8), (11, 7),
                                     (11, 6), (11, 5), (11, 4), (11, 3), (12, 3), (13, 3), (14, 3)])
+        ''' This test ensures that the naiverec() function only fails if it reaches the
+        Python recursion limit.'''
         limitTest = []
         for _ in range(500):
           limitTest.append([0, 1])
