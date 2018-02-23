@@ -3,7 +3,7 @@ import time
 print("start")
 def proofTest(matrix, solution):
     def clear():
-        os.system("cls")
+        os.system('cls' if os.name == 'nt' else 'clear')
         return
 
     x = input("Visual proof? y/n")
